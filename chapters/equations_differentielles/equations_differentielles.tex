@@ -1,0 +1,182 @@
+\subsection*{Équations différentielles}
+\noindent
+$h$ : pas de discrétisation\\
+Il faut isoler $y^{\prime}$ tel que $y^{\prime}=f(t,y)$
+\subsubsection*{Euler (un étage)}
+\noindent
+\begin{equation}
+    \left\{
+    \begin{aligned}
+        y_{n+1} & = y_n + h\cdot f(t_n, y_n), \\
+        t_{n+1} & = t_n + h
+    \end{aligned}
+    \right.
+    \nonumber
+\end{equation}
+\subsubsection*{Point milieu}
+\noindent
+\begin{equation}
+    \left\{
+    \begin{aligned}
+         & s_1     = f(t_n,y_n),                                             \\
+         & s_2     = f\left(t_n+\frac{h}{2},y_n+\frac{h}{2}\cdot s_1\right), \\
+         & y_{n+1} = y_n+h\cdot s_2,                                         \\
+         & t_{n+1} = t_n+h.
+    \end{aligned}
+    \right.
+    \nonumber
+\end{equation}
+\subsubsection*{Trapèze}
+\noindent
+\begin{equation}
+    \left\{
+    \begin{aligned}
+         & s_1     = f(t_n,y_n),                         \\
+         & s_2     = f\left(t_n+h,y_n+h\cdot s_1\right), \\
+         & y_{n+1} = y_n+\frac{h}{2}\cdot(s_1+s_2),      \\
+         & t_{n+1} = t_n+h.
+    \end{aligned}
+    \right.
+    \nonumber
+\end{equation}
+\subsubsection*{Runge-Kutta d'ordre 2 (forme générale)}
+\noindent
+\begin{equation}
+    \left\{
+    \begin{aligned}
+         & s_1     = f(t_n,y_n),                                              \\
+         & s_2     = f\left(t_n+c_2\cdot h,y_n+a_{21}\cdot h\cdot s_1\right), \\
+         & y_{n+1} = y_n+h\cdot (\omega_1\cdot s_1 + \omega_2\cdot s_2),      \\
+         & t_{n+1} = t_n+h.
+    \end{aligned}
+    \right.
+    \nonumber
+\end{equation}
+Il est possible de représenter les différents paramètres intervenant dans une méthode
+de Runge-Kutta d'ordre 2 ($c_2$, $a_21$, $w_1$ et $w_2$) dans un tableau
+\begin{center}
+    \begin{tabular}{c|c c}
+        0     &            &            \\
+        $c_2$ & $a_{21}$                \\
+        \hline
+              & $\omega_1$ & $\omega_2$
+    \end{tabular}
+\end{center}
+point milieu (droite), optimal (milieu), trapèze (gauche)
+\begin{center}
+    \begin{tabular}{c|c c}
+        0              &                &   \\
+        $\sfrac{1}{2}$ & $\sfrac{1}{2}$ &   \\
+        \hline
+                       & 0              & 1
+    \end{tabular}
+    \begin{tabular}{c|c c}
+        0              &                &                \\
+        $\sfrac{2}{3}$ & $\sfrac{2}{3}$ &                \\
+        \hline
+                       & $\sfrac{1}{4}$ & $\sfrac{3}{4}$
+    \end{tabular}
+    \begin{tabular}{c|c c}
+        0 &                &                \\
+        1 & 1              &                \\
+        \hline
+          & $\sfrac{1}{2}$ & $\sfrac{1}{2}$
+    \end{tabular}
+\end{center}
+\subsubsection*{Runge-Kutta d'ordre 3 (forme générale)}
+\noindent
+\begin{equation}
+    \left\{
+    \begin{aligned}
+         & s_1     = f(t_n,y_n),                                                                     \\
+         & s_2     = f\left(t_n+c_2\cdot h,y_n+a_{21}\cdot h\cdot s_1\right),                        \\
+         & s_3     = f\left(t_n+c_3\cdot h,y_n+a_{31}\cdot h\cdot s_1+a_{32}\cdot h\cdot s_2\right), \\
+         & y_{n+1} = y_n+h\cdot (\omega_1\cdot s_1 + \omega_2\cdot s_2 + \omega_3\cdot s_3),         \\
+         & t_{n+1} = t_n+h.
+    \end{aligned}
+    \right.
+    \nonumber
+\end{equation}
+Kutta (droite), $\sfrac{2}{3}$ (milieu), optimale (gauche)
+\begin{center}
+    \begin{tabular}{c|c c c}
+        0              &                &                &                \\
+        $\sfrac{1}{2}$ & $\sfrac{1}{2}$ &                &                \\
+        1              & $-1$           & 2              &                \\
+        \hline
+                       & $\sfrac{1}{6}$ & $\sfrac{2}{3}$ & $\sfrac{1}{6}$
+    \end{tabular}
+    \begin{tabular}{c|c c c}
+        0              &                &                &                \\
+        $\sfrac{1}{2}$ & $\sfrac{1}{2}$ &                &                \\
+        $\sfrac{3}{4}$ & 0              & $\sfrac{3}{4}$ &                \\
+        \hline
+                       & $\sfrac{2}{9}$ & $\sfrac{3}{9}$ & $\sfrac{4}{9}$
+    \end{tabular}
+    \begin{tabular}{c|c c c}
+        0              &                &                &                \\
+        $\sfrac{2}{3}$ & $\sfrac{2}{3}$ &                &                \\
+        $\sfrac{2}{3}$ & $\sfrac{1}{3}$ & $\sfrac{1}{3}$ &                \\
+        \hline
+                       & $\sfrac{1}{4}$ & 0              & $\sfrac{3}{4}$
+    \end{tabular}
+\end{center}
+\subsubsection*{Runge-Kutta classique}
+\noindent
+\begin{equation}
+    \left\{
+    \begin{aligned}
+         & s_1     = f(t_n,y_n),                                             \\
+         & s_2     = f\left(t_n+\frac{h}{2},y_n+\frac{h}{2}\cdot s_1\right), \\
+         & s_3     = f\left(t_n+\frac{h}{2},y_n+\frac{h}{2}\cdot s_2\right), \\
+         & s_4     = f(t_n+h,y_n+h\cdot s_3),                                \\
+         & y_{n+1} = y_n+\frac{h}{6}\cdot(s_1+2\cdot s_2+2\cdot s_3+s_4),    \\
+         & t_{n+1} = t_n+h.
+    \end{aligned}
+    \right.
+    \nonumber
+\end{equation}
+\subsubsection*{Runge-Kutta-Fehlberg}
+\noindent
+\begin{equation}
+    \left\{
+    \begin{aligned}
+         & s_1     = f(t_n,y_n),                                                           \\
+         & s_2     = f\left(t_n+\frac{h}{2},y_n+\frac{h}{2}\cdot s_1\right),               \\
+         & s_3     = f\left(t_n+\frac{3}{4}\cdot h,y_n+\frac{3}{4}\cdot h\cdot s_2\right), \\
+         & y_{n+1} = y_n+\frac{h}{9}\cdot(2\cdot s_1+3\cdot s_2+4\cdot s_3),               \\
+         & s_4     = f(t_n+h,y_{n+1}),                                                     \\
+         & e_{n+1} = \frac{h}{72}\cdot(-5\cdot s_1+6\cdot s_2+8\cdot s_3-9\cdot s_4),      \\
+         & t_{n+1} = t_n+h.
+    \end{aligned}
+    \right.
+    \nonumber
+\end{equation}
+\subsubsection*{Systèmes d'équations différentielles}
+\noindent
+On peut transformer une équation différentielle d'ordre $n$ en un système d'équations
+différentielles d'ordre 1. Au lieu d'avoir $n$ dérivées, on a $n$ fonctions inconnues.\\
+\textbf{Exemple :} $x^{\prime\prime}(t)=-\sin(t)\cdot x^\prime(t)+2\cdot x(t)$
+\begin{equation}
+    \begin{gathered}
+        \begin{array}{cc}
+            y(t)=\begin{pmatrix} x \\ x' \end{pmatrix}, & y^\prime(t) = \begin{pmatrix} x' \\ x'' \end{pmatrix} = \begin{pmatrix} x' \\ -\sin(t)\cdot x^\prime+2\cdot x \end{pmatrix},
+        \end{array} \\
+        y^\prime\left(t,\binom{y_1}{y_2}\right)=\binom{y_2}{-\sin(t)\cdot y_2+2\cdot y_1}
+    \end{gathered}
+    \nonumber
+\end{equation}
+Ensuite, on peut appliquer une méthode numérique à ce système d'équations différentielles.
+On aura donc, par exemple pour Euler :
+\begin{equation}
+    \left\{
+    \begin{aligned}
+         & y_{1,n+1} = y_{1,n} + h\cdot y_{2,n},                                  \\
+         & y_{2,n+1} = y_{2,n} + h\cdot (-\sin(t_n)\cdot y_{2,n}+2\cdot y_{1,n}), \\
+         & t_{n+1} = t_n + h.
+    \end{aligned}
+    \right.
+    \nonumber
+\end{equation}
+Et pour une méthode de Runge-Kutta on devrait calculer deux $s_1$, $s_2$, etc.
+et pour chaque pas de temps $t_n$ on aura deux valeurs $y_{1,n}$ et $y_{2,n}$.

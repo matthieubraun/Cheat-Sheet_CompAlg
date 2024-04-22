@@ -1,0 +1,104 @@
+\subsection*{Intégration numérique}
+\subsubsection*{Méthode composite du trapèze}
+\noindent
+Pour les points $x_0, x_1, \dots, x_n$ avec $x_0=a$ et $x_n=b$.
+\begin{equation}
+    \left\{
+    \begin{aligned}
+         & T(h) = h\cdot \left[\frac{1}{2}\cdot f(a)+\sum_{j=1}^{n-1}f(x_j)+\frac{1}{2}\cdot f(b)\right] \\
+         & h = \frac{b-a}{n}                                                                             \\
+    \end{aligned}
+    \right.
+    \nonumber
+\end{equation}
+\subsubsection*{Méthode du point milieu}
+\noindent
+\begin{equation}
+    \left\{
+    \begin{aligned}
+         & M(h) = h\cdot \sum_{j=0}^{n-1}f(x_{j+\sfrac{1}{2}}) \\
+         & x_{j+\sfrac{1}{2}} = a + (j + \sfrac{1}{2})\cdot h
+    \end{aligned}
+    \right.
+    \nonumber
+\end{equation}
+Il existe la relation suivant entre les deux méthodes :
+\begin{equation}
+    T\left(\frac{h}{2}\right) = \frac{1}{2}\cdot [T(h) + M(h)]
+    \nonumber
+\end{equation}
+\subsubsection*{Méthode de Simpson simple}
+\noindent
+\begin{equation}
+    S = \frac{h}{3}\cdot \left[f(a)+4\cdot f\left(\frac{a+b}{2}\right)+f(b)\right]
+    \nonumber
+\end{equation}
+\subsubsection*{Méthode de Simpson composée}
+\noindent
+\begin{equation}
+    \left\{
+    \begin{aligned}
+        S_c & = \frac{h}{3}\cdot \left(f(a)+4\cdot f(x_1)+f(b)\right.     \\
+            & \quad+2\cdot \sum_{k=1}^{n-1}[f(x_{2k})+2\cdot f(x_{2k+1})] \\
+        x_n & = a + n\cdot h
+    \end{aligned}
+    \right.
+    \nonumber
+\end{equation}
+\subsubsection*{Méthode Newton-Cotes}
+\noindent
+\begin{equation}
+    \left\{
+    \begin{aligned}
+         & Q_n=\int_a^b P_n(x)\cdot dx = \sum_{j=0}^n w_j\cdot f(x_j) \\
+         & w_j = \int_a^b \prod_{\substack{k=0                        \\ k\neq j}}^n \frac{x-x_k}{x_j-x_k}\cdot dx
+    \end{aligned}
+    \right.
+    \nonumber
+\end{equation}
+Exemple avec $n=1$, $x_0=a$ et $x_1=b$ parce que ça veut juste rien dire :
+\begin{equation}
+    Q_1 = \frac{h}{2}\cdot[f(x_0)+f(x_1)]
+    \nonumber
+\end{equation}
+$n=2$, $x_0=a$ et $x_2=b$
+\begin{equation}
+    Q_2 = \frac{h}{3}\cdot[f(x_0)+4\cdot f(x_1)+f(x_2)]
+    \nonumber
+\end{equation}
+$n=3$, $x_0=a$ et $x_3=b$
+\begin{equation}
+    Q_3 = \frac{3\cdot h}{8}\cdot[f(x_0)+3\cdot f(x_1)+3\cdot f(x_2)+f(x_3)]
+    \nonumber
+\end{equation}
+$n=4$, $x_0=a$ et $x_4=b$
+\begin{equation}
+    Q_4 = \frac{2\cdot h}{45}\cdot[7\cdot f(x_0)+32\cdot f(x_1)+12\cdot f(x_2)+32\cdot f(x_3)+7\cdot f(x_4)]
+    \nonumber
+\end{equation}
+\subsubsection*{Méthode de Romberg}
+\noindent
+Pour les $T_{i,0}$, on utilise la méthode du trapèze. Pour le reste :
+\begin{equation}
+    \left\{
+    \begin{aligned}
+         & T_{i,0} = T\left(\frac{h}{2^n}\right)                  \\
+         & T_{i,j} = \frac{4^j\cdot T_{i,j-1}-T_{i-1,j-1}}{4^j-1} \\
+    \end{aligned}
+    \right.
+    \nonumber
+\end{equation}
+Ce qui donne le schéma suivant :
+\begin{equation}
+    \begin{tabular}{ccc}
+        $T_{0,0}$ &           &           \\
+        $T_{1,0}$ & $T_{1,1}$ &           \\
+        $T_{2,0}$ & $T_{2,1}$ & $T_{2,2}$ \\
+    \end{tabular}
+    \nonumber
+\end{equation}
+Afin d'avoir un comportement de convergence, il faut que $f(x)$ soit
+$2n + 2$ fois continûment dérivable
+\subsubsection*{Méthode de Gauss}
+\noindent
+Juste genre vraiment j'ai rien compris là.

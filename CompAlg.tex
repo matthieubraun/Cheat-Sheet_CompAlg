@@ -1,0 +1,44 @@
+%LaTex cheat sheet template
+\documentclass[10pt,a4paper,landscape]{article}
+
+\usepackage{xfrac}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{geometry}
+\usepackage{lipsum}
+\usepackage{titlesec}
+\usepackage[nodisplayskipstretch]{setspace}
+
+\geometry{a4paper, total={297mm,210mm}, left=2mm, top=0mm, right=0mm, bottom=3mm}
+
+\titlespacing{\section}{0pt}{0pt}{0pt}
+\titlespacing{\subsection}{0pt}{0pt}{0pt}
+\titlespacing{\subsubsection}{0pt}{0pt}{0pt}
+
+
+% \setlength{\abovedisplayskip}{0pt}
+% \setlength{\belowdisplayskip}{0pt}
+
+\begin{document}
+\begin{multicols*}{3}
+    \section*{Formulaire CompAlg}
+    \input{chapters/equations_differentielles/equations_differentielles.tex}
+    \newpage
+    \input{chapters/algebre_lineaire_numerique/algebre_lineaire_numerique.tex}
+    \newpage
+    \input{chapters/courbes_bezier/courbes_bezier.tex}
+    \columnbreak
+    \input{chapters/systeme_equations_non_lineaire/systeme_equations_non_lineaire.tex}
+    \input{chapters/systeme_equations_non_lineaire/equations_non_lineaires.tex}
+    \input{chapters/integration_numerique/integration_numerique.tex}
+    \input{chapters/interpolation/interpolation.tex}
+
+
+    % \subsubsection*{Subsection 2}
+    % \lipsum[1-10]
+
+\end{multicols*}
+\end{document}

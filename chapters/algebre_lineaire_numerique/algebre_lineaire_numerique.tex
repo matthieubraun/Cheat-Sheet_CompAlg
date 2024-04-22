@@ -1,0 +1,479 @@
+\subsection*{Algèbre linéaire numérique}
+\noindent
+On peut réécrire un système d'équations linéaires sous la forme $A\cdot x=b$.
+\begin{equation}
+    \begin{pmatrix}
+        a_{11} & a_{12} & \cdots & a_{1n} \\
+        a_{21} & a_{22} & \cdots & a_{2n} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        a_{m1} & a_{m2} & \cdots & a_{mn}
+    \end{pmatrix}
+    \cdot
+    \begin{pmatrix}
+        x_1    \\
+        x_2    \\
+        \vdots \\
+        x_n
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        b_1    \\
+        b_2    \\
+        \vdots \\
+        b_m
+    \end{pmatrix}
+    \nonumber
+\end{equation}
+Pour les exemples on prend toujours le système suivant :
+\begin{equation}
+    \begin{pmatrix}
+        1 & 2 & 3 \\
+        4 & 5 & 6 \\
+        7 & 8 & 9
+    \end{pmatrix}
+    \cdot
+    \begin{pmatrix}
+        x_1 \\
+        x_2 \\
+        x_3
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        1 \\
+        2 \\
+        3
+    \end{pmatrix}
+    \nonumber
+\end{equation}
+\subsubsection*{Méthode de Gauss}
+\noindent
+\begin{equation}
+    \left(\begin{array}{ccc|c}
+        1 & 2 & 3 & 1 \\
+        4 & 5 & 6 & 2 \\
+        7 & 8 & 9 & 3
+    \end{array}\right)
+    \rightarrow
+    \left(\begin{array}{ccc|c}
+        1 & 2  & 3   & 1  \\
+        4 & 4  & 6   & 2  \\
+        0 & -6 & -12 & -4
+    \end{array}\right)
+    \nonumber
+\end{equation}
+\begin{equation}
+    \rightarrow
+    \left(\begin{array}{ccc|c}
+        1 & 2 & 3  & 1  \\
+        4 & 5 & 6  & 2  \\
+        0 & 0 & -3 & -1
+    \end{array}\right)
+    \rightarrow
+    \left(\begin{array}{ccc|c}
+        1 & 2  & 3  & 1  \\
+        0 & -3 & -6 & -2 \\
+        0 & 0  & -3 & -1
+    \end{array}\right)
+    \nonumber
+\end{equation}
+Puis on remonte et on trouve $x_3=\sfrac{-4}{-6}=\sfrac{2}{3}$, $x_2=\dots$
+\subsubsection*{Décomposition LU}
+\noindent
+Le but de la décomposition LU est de factoriser la matrice $A$ en
+deux matrices $L$ et $U$ telles que $A=L\cdot U$. Elle ne s'applique qu'aux
+matrices carrées.\\
+\begin{equation}
+    \begin{pmatrix}
+        a_{11} & a_{12} & a_{13} \\
+        a_{21} & a_{22} & a_{23} \\
+        a_{31} & a_{32} & a_{33}
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        1      & 0      & 0 \\
+        l_{21} & 1      & 0 \\
+        l_{31} & l_{32} & 1
+    \end{pmatrix}
+    \cdot
+    \begin{pmatrix}
+        u_{11} & u_{12} & u_{13} \\
+        0      & u_{22} & u_{23} \\
+        0      & 0      & u_{33}
+    \end{pmatrix}
+    \nonumber
+\end{equation}
+Les coefficients sont calculés comme suit :
+\begin{equation}
+    \begin{aligned}
+         & a_{11}= 1 \cdot u_{11} + 0 \cdot 0 + 0 \cdot 0           \\
+         & a_{12}= 1 \cdot u_{12} + 0 \cdot u_{22} + 0 \cdot 0      \\
+         & a_{13}= 1 \cdot u_{13} + 0 \cdot u_{23} + 0 \cdot u_{33} \\
+         & a_{21}= l_{21} \cdot u_{11} + 1 \cdot 0 + 0 \cdot 0      \\
+         & a_{22}= l_{21} \cdot u_{12} + 1 \cdot u_{22} + 0 \cdot 0 \\
+         & \dots
+    \end{aligned}
+    \nonumber
+\end{equation}
+Puis comme on connait les $a_{ij}$ on peut trouver les $l_{ij}$ et les $u_{ij}$.
+Ensuite on résout le système $L\cdot \overrightarrow{y}=\overrightarrow{b}$ et
+$U\cdot \overrightarrow{x}=\overrightarrow{y}$ :
+\begin{equation}
+    \begin{pmatrix}
+        1      & 0      & 0 \\
+        l_{21} & 1      & 0 \\
+        l_{31} & l_{32} & 1
+    \end{pmatrix}
+    \cdot
+    \begin{pmatrix}
+        y_1 \\
+        y_2 \\
+        y_3
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        1 \\
+        2 \\
+        3
+    \end{pmatrix}
+    \nonumber
+\end{equation}
+\begin{equation}
+    \begin{pmatrix}
+        u_{11} & u_{12} & u_{13} \\
+        0      & u_{22} & u_{23} \\
+        0      & 0      & u_{33}
+    \end{pmatrix}
+    \cdot
+    \begin{pmatrix}
+        x_1 \\
+        x_2 \\
+        x_3
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        y_1 \\
+        y_2 \\
+        y_3
+    \end{pmatrix}
+    \nonumber
+\end{equation}
+Il faut faire attention si la première valeur de la matrice est très petite,
+il faut permuter les lignes. Sinon, on peut avoir des erreurs d'arrondi à cause
+des chiffres significatifs. 3 chiffres dans la mantisse signifie
+: $1.234\cdot 10^6=1.230\cdot 10^6$\\
+Attention si on permute des lignes, il faut aussi permuter les valeurs de $b$ :
+\begin{equation}
+    PA\overrightarrow{x}=P\overrightarrow{b}
+    \nonumber
+\end{equation}
+\begin{equation}
+    L\underbrace{U\overrightarrow{x}}_{\overrightarrow{y}}=P\overrightarrow{b}
+    \nonumber
+\end{equation}
+\subsubsection*{Transformation de Householder}
+\noindent
+La transformation de Householder permet de transformer une matrice $A$ en une
+matrice $R$ triangulaire supérieure. Pour cela il faut recalculer les vecteurs
+$\overrightarrow{x}$ et les matrices $H$ pour chaque colonne de la matrice $A$.
+\begin{equation}
+    H\cdot \overrightarrow{x}=-\rho\cdot \overrightarrow{e}_1
+    \nonumber
+\end{equation}
+Pour une matrice 3x3 :
+\begin{equation}
+    \begin{tabular}{cc}
+        $\overrightarrow{x_1}=
+            \begin{pmatrix}
+                x_1 \\
+                x_2 \\
+                x_3
+            \end{pmatrix}
+            \rightarrow
+        \begin{pmatrix}
+                -\rho_1 \\
+                0       \\
+                0
+            \end{pmatrix}$ &
+        $\overrightarrow{x_2}=
+            \begin{pmatrix}
+                x_1 \\
+                x_2 \\
+                x_3
+            \end{pmatrix}
+            \rightarrow
+            \begin{pmatrix}
+                \alpha  \\
+                -\rho_2 \\
+                0
+            \end{pmatrix}$
+    \end{tabular}
+    \nonumber
+\end{equation}
+\begin{equation}
+    \overrightarrow{x_3}=
+    \begin{pmatrix}
+        x_1 \\
+        x_2 \\
+        x_3
+    \end{pmatrix}
+    \rightarrow
+    \begin{pmatrix}
+        \beta  \\
+        \gamma \\
+        \delta
+    \end{pmatrix}
+    \nonumber
+\end{equation}
+\begin{equation}
+    \rho = \text{sign}(x_1)\cdot \left \|  \overrightarrow{x}\right \|_2
+    \nonumber
+\end{equation}
+\begin{equation}
+    \overrightarrow{v} = \overrightarrow{x}+\rho\cdot \overrightarrow{e}_1
+    \nonumber
+\end{equation}
+\begin{equation}
+    \gamma = \frac{\left \| \overrightarrow{v} \right \|_2^2}{2}=\rho\cdot v_1
+    \nonumber
+\end{equation}
+Et donc la matrice $H$ se calcul :
+\begin{equation}
+    H=I-\frac{\overrightarrow{v}\cdot \overrightarrow{v}^T}{\gamma}
+    \nonumber
+\end{equation}
+\subsubsection*{Décomposition QR}
+\noindent
+Le but de la décomposition QR est de factoriser la matrice $A$ en
+deux matrices $Q$ et $R$ telles que $A=Q\cdot R$. Elle s'applique à toutes les
+matrices.\\
+Exemple pour une matrice 3x3 :\\
+\textbf{1ère colonne :}
+calculer $H_1$ avec $\overrightarrow{x_1}$ puis :
+\begin{equation}
+    A_1=H_1\cdot A = \begin{pmatrix}
+        -\rho_1 & \alpha & \beta \\
+        0       & \star  & \star \\
+        0       & \star  & \star
+    \end{pmatrix}
+    \nonumber
+\end{equation}
+\textbf{2ère colonne :}
+calculer $H_2$ avec $\overrightarrow{x_2}$ puis :
+\begin{equation}
+    A_2=H_2\cdot A_1 = \begin{pmatrix}
+        -\rho_1 & \alpha  & \beta  \\
+        0       & -\rho_2 & \gamma \\
+        0       & 0       & \delta
+    \end{pmatrix}
+    \nonumber
+\end{equation}
+$H_2$ devrait être de la forme :
+\begin{equation}
+    H_2=\begin{pmatrix}
+        1 & 0     & 0     \\
+        0 & \star & \star \\
+        0 & \star & \star
+    \end{pmatrix}
+    \nonumber
+\end{equation}
+\textbf{Résoudre le système :}
+\begin{equation}
+    Q^T = H_2\cdot H_1
+    \nonumber
+\end{equation}
+\begin{equation}
+    R = A_2
+    \nonumber
+\end{equation}
+\begin{equation}
+    \begin{tabular}{ccc}
+        $R\cdot \overrightarrow{x}=Q^T\cdot \overrightarrow{b}$
+         & $\Longleftrightarrow $
+         & $A_2\cdot \overrightarrow{x}=H_2\cdot H_1\cdot \overrightarrow{b}$
+    \end{tabular}
+    \nonumber
+\end{equation}
+\subsubsection*{Méthode de Jacobi}
+\noindent
+Pour les méthodes itératives, il faut que la matrice soit diagonalement dominante :
+\begin{equation}
+    \left | a_{ii} \right | > \sum_{j=1,j\neq i}^{n} \left | a_{ij} \right |
+    \nonumber
+\end{equation}
+Soit le système :
+\begin{equation}
+    \begin{pmatrix}
+        10 & 1  \\
+        2  & 10 \\
+    \end{pmatrix}
+    \cdot
+    \begin{pmatrix}
+        x_1 \\
+        x_2
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        11 \\
+        12 \\
+    \end{pmatrix}
+    \nonumber
+\end{equation}
+Qu'on réécrit sous la forme :
+\begin{equation}
+    \left\{\begin{aligned}
+         & 10\cdot x_1^{(k+1)}=-1\cdot x_2^{(k)}+11 \\
+         & 10\cdot x_2^{(k+1)}=-2\cdot x_1^{(k)}+12
+    \end{aligned}\right.
+    \nonumber
+\end{equation}
+\begin{equation}
+    \left\{\begin{aligned}
+         & x_1^{(k+1)}=\frac{1}{10}\cdot(-1\cdot x_2^{(k)}+11) \\
+         & x_2^{(k+1)}=\frac{1}{10}\cdot(-2\cdot x_1^{(k)}+12)
+    \end{aligned}\right.
+    \nonumber
+\end{equation}
+Pour estimer le nombre d'itérations à effectuer afin de réduire l'erreur initiale
+d'un facteur $\tau$ il faut calculer le rayon spectral de la matrice d'itération
+$E=I-NA$, dans le cas de la méthode de Jacobi :
+\begin{equation}
+    \varrho(E)=\max_i\left |\lambda_i(E) \right |
+    \nonumber
+\end{equation}
+\begin{equation}
+    E=I-D^{-1}\cdot A
+    \nonumber
+\end{equation}
+\begin{equation}
+    n \geq \frac{\ln(\tau)}{\ln(\varrho(E))}
+    \nonumber
+\end{equation}
+\subsubsection*{Méthode de Gauss-Seidel}
+\noindent
+Même chose que pour la méthode de Jacobi, mais on utilise les nouvelles valeurs
+dans la même itération :
+\begin{equation}
+    \left\{\begin{aligned}
+         & x_1^{(k+1)}=\frac{1}{10}\cdot(-1\cdot x_2^{(k)}+11)   \\
+         & x_2^{(k+1)}=\frac{1}{10}\cdot(-2\cdot x_1^{(k+1)}+12)
+    \end{aligned}\right.
+    \nonumber
+\end{equation}
+Matrice d'itérations pour réduire l'erreur initiale d'un facteur $\tau$ :
+\begin{equation}
+    E = I-(D+L)^{-1}\cdot A
+    \nonumber
+\end{equation}
+\subsubsection*{Méthode de relaxation}
+\noindent
+Même chose que pour la méthode de Gauss-Seidel, mais on rajoute un poids $\omega$ :
+\begin{equation}
+    \left\{\begin{aligned}
+         & x_1^{(k+1)}=(1-\omega)\cdot x_1^{(k)}+\frac{\omega}{10}\cdot(-1\cdot x_2^{(k)}+11)   \\
+         & x_2^{(k+1)}=(1-\omega)\cdot x_2^{(k)}+\frac{\omega}{10}\cdot(-2\cdot x_1^{(k+1)}+12)
+    \end{aligned}\right.
+    \nonumber
+\end{equation}
+\subsubsection*{Méthode de descente pour \boldmath{$F(\overrightarrow{x})=\left \| \overrightarrow{b}-A \overrightarrow{x} \right \|_2^2$}}
+\noindent
+On veut minimiser la fonction $F(\overrightarrow{x})$.\\
+$\overrightarrow{x_0}$ étant le vecteur de départ (aléatoire), on calcule :\\
+\textbf{L'erreur}
+\begin{equation}
+    F(\overrightarrow{x_0})=\left \| \overrightarrow{b}-A\cdot \overrightarrow{x_0} \right \|_2^2
+    \nonumber
+\end{equation}
+\textbf{Le résidu}
+\begin{equation}
+    \overrightarrow{r_0}=\overrightarrow{b}-A\cdot \overrightarrow{x_0}
+    \nonumber
+\end{equation}
+\textbf{Le gradient de \boldmath{$F(\overrightarrow{x})$}}
+\begin{equation}
+    \nabla F(\overrightarrow{x_0})=-2\cdot A^T\cdot \overrightarrow{r_0}
+    \nonumber
+\end{equation}
+\textbf{La direction de descente}
+\begin{equation}
+    \overrightarrow{d_0}=-\nabla F(\overrightarrow{x_0})=2\cdot A^T\cdot \overrightarrow{r_0}
+    \nonumber
+\end{equation}
+\textbf{Le pas}
+\begin{equation}
+    \alpha_0=\frac{\overrightarrow{r_0}^T\cdot A\cdot \overrightarrow{d_0}}{\overrightarrow{d_0}^T\cdot A^T\cdot A\cdot \overrightarrow{d_0}}
+    \nonumber
+\end{equation}
+\textbf{Le nouveau vecteur}
+\begin{equation}
+    \overrightarrow{x_1}=\overrightarrow{x_0}+\alpha_0\cdot \overrightarrow{d_0}
+    \nonumber
+\end{equation}
+Puis recommencer pour $\overrightarrow{x_1}$, $\overrightarrow{x_2}$, $\dots$\\
+\subsubsection*{Méthode de descente pour \boldmath{$G(\overrightarrow{x})=\frac{1}{2} \overrightarrow{x}^T A \overrightarrow{x}-\overrightarrow{x}^T\overrightarrow{b}$}}
+\noindent
+On veut minimiser la fonction $G(\overrightarrow{x})$.\\
+$\overrightarrow{x_0}$ étant le vecteur de départ (aléatoire), on calcule :\\
+\textbf{L'erreur}
+\begin{equation}
+    G(\overrightarrow{x_0})=\frac{1}{2}\cdot \overrightarrow{x_0}^T\cdot A\cdot \overrightarrow{x_0}-\overrightarrow{x_0}^T\cdot \overrightarrow{b}
+    \nonumber
+\end{equation}
+\textbf{Le gradient de \boldmath{$G(\overrightarrow{x})$}}
+\begin{equation}
+    \nabla G(\overrightarrow{x_0})=A\cdot \overrightarrow{x_0}-\overrightarrow{b}
+    \nonumber
+\end{equation}
+\textbf{Le résidu et la direction de descente}
+\begin{equation}
+    \overrightarrow{r_0}=\overrightarrow{d_0}=\overrightarrow{b}-A\cdot \overrightarrow{x_0}
+    \nonumber
+\end{equation}
+\textbf{Le pas}
+\begin{equation}
+    \alpha_0=\frac{\overrightarrow{d_0}^T\cdot \overrightarrow{d_0}}{\overrightarrow{d_0}^T\cdot A\cdot \overrightarrow{d_0}}
+    \nonumber
+\end{equation}
+\textbf{Le nouveau vecteur}
+\begin{equation}
+    \overrightarrow{x_1}=\overrightarrow{x_0}+\alpha_0\cdot \overrightarrow{d_0}
+    \nonumber
+\end{equation}
+Puis recommencer pour $\overrightarrow{x_1}$, $\overrightarrow{x_2}$, $\dots$\\
+\subsubsection*{Méthode du gradient conjugués}
+\noindent
+On veut minimiser la fonction $G(\overrightarrow{x})$.\\
+\textbf{L'erreur}
+\begin{equation}
+    G(\overrightarrow{x_k})=\frac{1}{2}\cdot \overrightarrow{x_k}^T\cdot A\cdot \overrightarrow{x_k}-\overrightarrow{x_k}^T\cdot \overrightarrow{b}
+    \nonumber
+\end{equation}
+\textbf{Le gradient de \boldmath{$G(\overrightarrow{x})$}}
+\begin{equation}
+    \nabla G(\overrightarrow{x_k})=A\cdot \overrightarrow{x_k}-\overrightarrow{b}
+    \nonumber
+\end{equation}
+\textbf{Le résidu}
+\begin{equation}
+    \overrightarrow{r_k}=\overrightarrow{b}-A\cdot \overrightarrow{x_k}
+    \nonumber
+\end{equation}
+\textbf{La direction de descente}
+\begin{equation}
+    \left\{\begin{aligned}
+         & d_0=r_0                                                                                                           \\
+         & d_k = r_k+\beta_k\cdot d_{k-1}=r_k+\frac{\left \| r_k \right \|_2^2}{\left \| r_{k-1} \right \|_2^2}\cdot d_{k-1}
+    \end{aligned}\right.
+    \nonumber
+\end{equation}
+\textbf{Le pas}
+\begin{equation}
+    \alpha_0=\frac{\overrightarrow{d_k}^T\cdot \overrightarrow{r_k}}{\overrightarrow{d_k}^T\cdot A\cdot \overrightarrow{d_k}}
+    \nonumber
+\end{equation}
+\textbf{Le nouveau vecteur}
+\begin{equation}
+    \overrightarrow{x}_{k+1}=\overrightarrow{x}_{k}+\alpha_k\cdot \overrightarrow{d}_k
+    \nonumber
+\end{equation}
+
+

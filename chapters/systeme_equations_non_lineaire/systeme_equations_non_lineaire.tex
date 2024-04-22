@@ -1,0 +1,106 @@
+\subsection*{Systèmes d'équations non linéaires}
+\noindent
+\subsubsection*{Point fixe}
+\noindent
+Exemple, mettre le système suivant sous forme de point fixe :
+\begin{align*}
+    \left\{
+    \begin{aligned}
+         & x^2-10x+y^2+6 = 0 \\
+         & xy^2+x-10y+5 = 0
+    \end{aligned}
+    \right. \\
+    \overrightarrow{F}(x,y) = \begin{pmatrix} F_1(x,y) \\ F_2(x,y) \end{pmatrix} =
+    \left\{
+    \begin{aligned}
+         & x = \frac{1}{10}\cdot (x^2+y^2+6) \\
+         & y = \frac{1}{10}\cdot (xy^2+x+5)
+    \end{aligned}
+    \right.
+\end{align*}
+Et donc pour itérer :
+\begin{align}
+    \left\{
+    \begin{aligned}
+         & x_{k+1} = \frac{1}{10}\cdot (x_k^2+y_k^2+6)  \\
+         & y_{k+1} = \frac{1}{10}\cdot (x_ky_k^2+x_k+5)
+    \end{aligned}
+    \right.
+    \nonumber
+\end{align}
+\subsubsection*{Norme matricielle}
+\noindent
+\begin{equation}
+    \left\|A\right\|_2 = \sqrt{a_{11}^2+a_{12}^2+\dots+a_{1n}^2+\dots+a_{n1}^2+a_{n2}^2+\dots+a_{nn}^2}
+    \nonumber
+\end{equation}
+\subsubsection*{Matrice de Jacobi}
+\noindent
+\begin{equation}
+    J_{\overrightarrow{F}}(x,y) =
+    \begin{pmatrix}
+        \frac{\partial F_1}{\partial x} & \frac{\partial F_1}{\partial y} \\
+        \frac{\partial F_2}{\partial x} & \frac{\partial F_2}{\partial y}
+    \end{pmatrix}
+    \nonumber
+\end{equation}
+\subsubsection*{Contraction sur $\mathbf{D}$}
+\noindent
+S'il existe une constante $L<1$ telle que la norme matricielle de la matrice de Jacobi
+soit inférieure à $L$ pour tout point $(x,y)\in D$, alors $\overrightarrow{F}(x,y)$ est
+un contraction sur $D$ :
+\begin{equation}
+    J_{\overrightarrow{F}}(x,y) =
+    \frac{1}{10}\cdot
+    \begin{pmatrix}
+        2x    & 2y        \\
+        y^2+1 & 2x\cdot y
+    \end{pmatrix}
+    \nonumber
+\end{equation}
+\begin{equation}
+    \left\|J_{\overrightarrow{F}}(x,y)\right\|_2 = \frac{1}{10}\cdot\sqrt{4x^2+4y^2+(y^2+1)^2+4x^2y^2}
+    \nonumber
+\end{equation}
+sur $D=\left\{(x,y):-1\leq x\leq 1, -1\leq y\leq 1\right\}$, on a :
+\begin{equation}
+    \left\|J_{\overrightarrow{F}}(x,y)\right\|_2 \leq \frac{1}{10}\cdot\sqrt{4+4+4+4} = \frac{2}{5}
+    \nonumber
+\end{equation}
+Car :
+\begin{align*}
+    F_1(x,y) & \leq \frac{1}{10}\cdot(1^2+1^2+6) = \frac{4}{5} < 1      \\
+    F_2(x,y) & \leq \frac{1}{10}\cdot(1\cdot1^2+1+5) = \frac{7}{10} < 1
+\end{align*}
+\subsubsection*{Erreurs}
+\noindent
+Erreur a priori :
+\begin{align*}
+    E_k & = \frac{L^k}{1-L}\cdot\left\|\overrightarrow{F}(x_1,y_1)-\overrightarrow{F}(x_0,y_0)\right\|_2 \\
+        & = \frac{L^k}{1-L}\cdot\sqrt{(x_1-x_0)^2+(y_1-y_0)^2}
+    \nonumber
+\end{align*}
+Erreur a posteriori pour une $k^{\grave{e}me}$ itération :
+\begin{align*}
+    E_k & = \frac{L}{1-L}\cdot\left\|\overrightarrow{F}(x_k,y_k)-\overrightarrow{F}(x_{k-1},y_{k-1})\right\|_2 \\
+        & = \frac{L}{1-L}\cdot\sqrt{(x_k-x_{k-1})^2+(y_k-y_{k-1})^2}
+    \nonumber
+\end{align*}
+Avec $L$ la constante de Lipschitz :
+\begin{equation}
+    L = \max_{(x,y)\in D}\left\|J_{\overrightarrow{F}}(x,y)\right\|_2 < 1
+    \nonumber
+\end{equation}
+\subsubsection*{Méthode de Newton (suicide)}
+\noindent
+\begin{equation}
+    \left\{
+    \begin{aligned}
+         & x_{k+1} = x_k + \frac{F_2(x_k,y_k)\cdot \frac{\partial F_1(x_k, y_k)}{\partial y}-F_1(x_k,y_k)\cdot \frac{\partial F_2(x_k, y_k)}{\partial y}}{\frac{\partial F_1(x_k, y_k)}{\partial x}\cdot \frac{\partial F_2(x_k, y_k)}{\partial y}-\frac{\partial F_1(x_k, y_k)}{\partial y}\cdot \frac{\partial F_2(x_k, y_k)}{\partial x}} \\
+         & y_{k+1} = y_k + \frac{F_1(x_k,y_k)\cdot \frac{\partial F_2(x_k, y_k)}{\partial x}-F_2(x_k,y_k)\cdot \frac{\partial F_1(x_k, y_k)}{\partial x}}{\frac{\partial F_1(x_k, y_k)}{\partial x}\cdot \frac{\partial F_2(x_k, y_k)}{\partial y}-\frac{\partial F_1(x_k, y_k)}{\partial y}\cdot \frac{\partial F_2(x_k, y_k)}{\partial x}}
+    \end{aligned}
+    \right.
+    \nonumber
+\end{equation}
+
+

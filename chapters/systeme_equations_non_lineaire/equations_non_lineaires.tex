@@ -1,0 +1,59 @@
+\subsection*{Équations non linéaires}
+\noindent
+\subsubsection*{Méthode de la bissection}
+\noindent
+On sait que le $f(x)$ coupe l'axe des $x$ entre $a$ et $b$. $a_0 = a$, $b_0 = b$
+\begin{equation}
+    \begin{cases}
+        a_{k+1} = a_k, b_{k+1} = x_k & \text{si } f(x_k)\cdot f(a_k) < 0 \\
+        a_{k+1} = x_k, b_{k+1} = b_k & \text{si } f(x_k)\cdot f(b_k) < 0 \\
+        x_{k+1} = \frac{a_{k+1}+b_{k+1}}{2}
+    \end{cases}
+    \nonumber
+\end{equation}
+\subsubsection*{Méthode de la sécante}
+\noindent
+\begin{equation}
+    x_{k+1} = x_k - \frac{f(x_k)\cdot (x_k-x_{k-1})}{f(x_k)-f(x_{k-1})}
+    \nonumber
+\end{equation}
+\subsubsection*{Méthode de Newton}
+\noindent
+\begin{equation}
+    x_{k+1} = x_k - \frac{f(x_k)}{f^{\prime}(x_k)}
+    \nonumber
+\end{equation}
+\subsubsection*{Point fixe}
+\noindent
+Voir les autre section où on met les équations sous forme de point fixe.
+\begin{equation}
+    x_{k+1} = F(x_k)
+    \nonumber
+\end{equation}
+\subsubsection*{Erreurs}
+\noindent
+Erreur a priori :
+\begin{equation}
+    E_k = \frac{L^k}{1-L}\cdot |x_1-x_0|
+    \nonumber
+\end{equation}
+Erreur a posteriori :
+\begin{equation}
+    E_k = \frac{L}{1-L}\cdot |x_k-x_{k-1}|
+    \nonumber
+\end{equation}
+Avec :
+\begin{equation}
+    L = \max_{x\in [a,b]}|F^{\prime}(x)| < 1
+    \nonumber
+\end{equation}
+\subsubsection*{Vitesse de convergence}
+\noindent
+Plus $P$ est grand, plus la vitesse de convergence est rapide.
+$r$ est la racine de $f(x)$.
+\noindent
+\begin{equation}
+    |x_{k+1}-r| \leq C\cdot |x_k-r|^p
+    \nonumber
+\end{equation}
+
